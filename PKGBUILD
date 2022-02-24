@@ -12,7 +12,7 @@ arch=("x86_64")
 url="http://${pkgname}.kde.org/"
 license=("FDL" "GPL2" "LGPL2.1")
 depends=("kcmutils" "kdoctools" "kdnssd" "kirigami2" "knewstuff" "ktexteditor" "liblastfm-qt5" "libofa" "mariadb" "phonon-qt5" "qt5-script" "qt5-tools" "qt5-webengine" "taglib-extras" "threadweaver")
-makedepends=("extra-cmake-modules" "gdk-pixbuf2" "git" "knotifyconfig" "loudmouth")
+makedepends=("extra-cmake-modules" "gdk-pixbuf2" "git" "knotifyconfig" "loudmouth" "ffmpeg4.4")
 optdepends=(
   "ifuse: support for Apple iPod Touch and iPhone"
   "loudmouth: backend needed by mp3tunes for syncing"
@@ -31,7 +31,10 @@ build() {
   cmake "${srcdir}/${pkgname}-${pkgver}" \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DBUILD_TESTING=OFF
+    -DBUILD_TESTING=OFF \
+    -DPC_LIBAVCODEC_INCLUDEDIR=/usr/include/ffmpeg4.4 -DPC_LIBAVCODEC_LIBDIR=/usr/lib/ffmpeg4.4 \
+    -DPC_LIBAVFORMAT_INCLUDEDIR=/usr/include/ffmpeg4.4 -DPC_LIBAVFORMAT_LIBDIR=/usr/lib/ffmpeg4.4 \
+    -DPC_LIBAVUTIL_INCLUDEDIR=/usr/include/ffmpeg4.4 -DPC_LIBAVUTIL_LIBDIR=/usr/lib/ffmpeg4.4
   make
 }
 
